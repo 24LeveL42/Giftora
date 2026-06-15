@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora – Tamil Funny Quotes on Everything!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF6B9D;
+    --orange: #FF8C42;
+    --yellow: #FFD166;
+    --green: #06D6A0;
+    --blue: #118AB2;
+    --purple: #9B5DE5;
+    --light: #FFF9F0;
+    --white: #ffffff;
+    --dark: #2D2D2D;
+    --radius: 18px;
+    --shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:var(--light); color:var(--dark); overflow-x:hidden; }
+
+  /* ===== NAV ===== */
+  nav {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    padding: 14px 30px;
+    display: flex; align-items:center; justify-content:space-between;
+    position: sticky; top:0; z-index:1000;
+    box-shadow: 0 4px 20px rgba(155,93,229,0.4);
+  }
+  .logo { font-family:'Fredoka One'; font-size:2rem; color:#fff; letter-spacing:1px; }
+  .logo span { color:var(--yellow); }
+  .nav-links { display:flex; gap:20px; align-items:center; }
+  .nav-links a { color:#fff; text-decoration:none; font-weight:700; font-size:.95rem; transition:.2s; }
+  .nav-links a:hover { color:var(--yellow); }
+  .cart-btn {
+    background:var(--yellow); color:var(--dark); border:none; border-radius:50px;
+    padding:8px 20px; font-weight:800; font-size:.95rem; cursor:pointer;
+    display:flex; align-items:center; gap:6px; transition:.2s;
+  }
+  .cart-btn:hover { background:#fff; transform:scale(1.05); }
+  .cart-count {
+    background:var(--pink); color:#fff; border-radius:50%;
+    width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;
+    font-size:.75rem; font-weight:800;
+  }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .hamburger span { width:25px; height:3px; background:#fff; border-radius:3px; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #FF6B9D 0%, #FF8C42 35%, #FFD166 65%, #06D6A0 100%);
+    padding: 80px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'😂🎁🛍️💥🎉';
+    font-size:4rem;
+    position:absolute; top:10px; left:0; right:0;
+    opacity:.15; white-space:nowrap; letter-spacing:60px;
+    animation: float 6s linear infinite;
+  }
+  @keyframes float { 0%{transform:translateX(-100px)} 100%{transform:translateX(100px)} }
+  .hero h1 { font-family:'Fredoka One'; font-size:clamp(2.2rem,6vw,4rem); color:#fff; text-shadow:3px 3px 0 rgba(0,0,0,.15); }
+  .hero p { font-size:1.2rem; color:#fff; margin:14px 0 30px; font-weight:600; opacity:.95; }
+  .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary {
+    background:var(--dark); color:#fff; border:none; border-radius:50px;
+    padding:14px 36px; font-size:1.1rem; font-weight:800; cursor:pointer; transition:.25s;
+    font-family:'Nunito';
+  }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+  .btn-secondary {
+    background:#fff; color:var(--purple); border:none; border-radius:50px;
+    padding:14px 36px; font-size:1.1rem; font-weight:800; cursor:pointer; transition:.25s;
+    font-family:'Nunito';
+  }
+  .btn-secondary:hover { transform:translateY(-3px); background:var(--yellow); }
+
+  /* ===== SECTIONS ===== */
+  section { padding:60px 20px; }
+  .section-title {
+    font-family:'Fredoka One'; font-size:2.2rem; text-align:center;
+    margin-bottom: 10px;
+  }
+  .section-sub { text-align:center; color:#777; margin-bottom:40px; font-size:1rem; }
+  .pill {
+    display:inline-block; background:var(--yellow); color:var(--dark);
+    border-radius:50px; padding:4px 16px; font-size:.8rem; font-weight:800;
+    margin-bottom:10px;
+  }
+
+  /* ===== PAGE SYSTEM ===== */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ===== DESIGNS GRID ===== */
+  #designs-section { background:#fff; }
+  .designs-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .design-card {
+    border-radius:var(--radius);
+    overflow:hidden;
+    cursor:pointer;
+    border:3px solid transparent;
+    transition:.25s;
+    box-shadow:var(--shadow);
+    background:#fff;
+    position:relative;
+  }
+  .design-card:hover { transform:translateY(-4px); border-color:var(--purple); }
+  .design-card.selected { border-color:var(--green); box-shadow:0 0 0 4px rgba(6,214,160,.3); }
+  .design-card.selected::after {
+    content:'✓ Selected';
+    position:absolute; bottom:0; left:0; right:0;
+    background:var(--green); color:#fff;
+    font-size:.75rem; font-weight:800; text-align:center; padding:4px;
+  }
+  .design-img {
+    width:100%; aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.85rem; font-weight:800; text-align:center; padding:12px;
+    line-height:1.4;
+    position:relative; overflow:hidden;
+  }
+  .design-label { padding:8px; text-align:center; font-size:.75rem; font-weight:700; color:#555; }
+
+  /* Owner upload panel */
+  .owner-panel {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius:var(--radius);
+    padding:20px;
+    margin: 20px auto;
+    max-width:400px;
+    text-align:center;
+    color:#fff;
+  }
+  .owner-panel h3 { font-family:'Fredoka One'; margin-bottom:10px; }
+  .owner-toggle { background:var(--yellow); color:var(--dark); border:none; border-radius:50px; padding:8px 20px; font-weight:800; cursor:pointer; margin-bottom:10px; }
+  .owner-form { display:none; margin-top:12px; }
+  .owner-form.show { display:block; }
+  .owner-form input[type=file] { width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px; }
+  .owner-form input[type=text] { width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px; font-family:'Nunito'; }
+  .upload-btn { background:var(--green); color:#fff; border:none; border-radius:50px; padding:10px 28px; font-weight:800; cursor:pointer; font-family:'Nunito'; }
+
+  /* ===== PRODUCTS ===== */
+  #products-section { background:var(--light); }
+  .products-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap:24px;
+    max-width:1000px;
+    margin:0 auto;
+  }
+  .product-card {
+    background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden; cursor:pointer;
+    transition:.25s; border:3px solid transparent;
+  }
+  .product-card:hover { transform:translateY(-5px); }
+  .product-card.selected { border-color:var(--orange); }
+  .product-img {
+    width:100%; height:180px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:4rem;
+    position:relative;
+  }
+  .product-info { padding:16px; }
+  .product-name { font-family:'Fredoka One'; font-size:1.2rem; color:var(--dark); }
+  .product-price { color:var(--pink); font-weight:800; font-size:1.1rem; margin:6px 0; }
+  .product-desc { color:#888; font-size:.85rem; margin-bottom:12px; }
+  .add-cart-btn {
+    width:100%; background:linear-gradient(135deg,var(--pink),var(--purple));
+    color:#fff; border:none; border-radius:50px; padding:10px;
+    font-weight:800; font-size:.95rem; cursor:pointer; transition:.2s;
+    font-family:'Nunito';
+  }
+  .add-cart-btn:hover { opacity:.85; transform:scale(1.02); }
+  .add-cart-btn:disabled { background:#ccc; cursor:not-allowed; transform:none; }
+
+  /* Product owner upload */
+  .product-upload-area {
+    background: linear-gradient(135deg,#f093fb,#f5576c);
+    border-radius:var(--radius); padding:20px; margin:20px auto;
+    max-width:400px; text-align:center; color:#fff;
+  }
+
+  /* ===== CART ===== */
+  #cart-section { background:#fff; }
+  .cart-container { max-width:700px; margin:0 auto; }
+  .cart-item {
+    display:flex; gap:16px; align-items:center;
+    background:var(--light); border-radius:var(--radius);
+    padding:16px; margin-bottom:14px;
+    box-shadow:0 2px 12px rgba(0,0,0,.07);
+  }
+  .cart-item-emoji { font-size:2.5rem; min-width:60px; text-align:center; }
+  .cart-item-info { flex:1; }
+  .cart-item-name { font-weight:800; font-size:1rem; }
+  .cart-item-design { font-size:.8rem; color:#888; }
+  .cart-item-price { font-weight:800; color:var(--pink); }
+  .remove-btn { background:none; border:none; font-size:1.2rem; cursor:pointer; color:#ccc; }
+  .remove-btn:hover { color:var(--pink); }
+  .cart-summary {
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    border-radius:var(--radius); padding:24px; color:#fff; margin-top:20px;
+  }
+  .cart-summary .total { font-family:'Fredoka One'; font-size:1.8rem; }
+  .checkout-btn {
+    width:100%; background:var(--yellow); color:var(--dark);
+    border:none; border-radius:50px; padding:14px; font-size:1.1rem;
+    font-weight:800; cursor:pointer; margin-top:16px; transition:.2s;
+    font-family:'Nunito';
+  }
+  .checkout-btn:hover { background:#fff; transform:scale(1.02); }
+  .empty-cart { text-align:center; padding:60px 20px; }
+  .empty-cart .emoji { font-size:5rem; display:block; margin-bottom:16px; }
+
+  /* ===== CHECKOUT ===== */
+  #checkout-section { background:var(--light); }
+  .checkout-form { max-width:600px; margin:0 auto; }
+  .form-group { margin-bottom:20px; }
+  .form-group label { display:block; font-weight:700; margin-bottom:6px; color:var(--dark); }
+  .form-group input, .form-group select {
+    width:100%; padding:13px 16px; border:2px solid #e0e0e0;
+    border-radius:12px; font-size:1rem; font-family:'Nunito';
+    transition:.2s; outline:none;
+    background:#fff;
+  }
+  .form-group input:focus, .form-group select:focus { border-color:var(--purple); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .payment-methods { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .pay-method {
+    flex:1; min-width:120px; border:2px solid #e0e0e0; border-radius:14px;
+    padding:14px; text-align:center; cursor:pointer; transition:.2s; background:#fff;
+  }
+  .pay-method:hover { border-color:var(--purple); }
+  .pay-method.selected { border-color:var(--green); background:rgba(6,214,160,.08); }
+  .pay-method .pay-icon { font-size:2rem; display:block; margin-bottom:6px; }
+  .pay-method .pay-name { font-weight:800; font-size:.9rem; }
+  .card-fields { display:none; }
+  .card-fields.show { display:block; }
+  .place-order-btn {
+    width:100%; background:linear-gradient(135deg,var(--pink),var(--orange));
+    color:#fff; border:none; border-radius:50px; padding:16px;
+    font-size:1.15rem; font-weight:800; cursor:pointer; transition:.2s;
+    font-family:'Nunito'; box-shadow:0 6px 20px rgba(255,107,157,.4);
+  }
+  .place-order-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(255,107,157,.5); }
+  .section-divider { border:none; border-top:2px dashed #e0e0e0; margin:28px 0; }
+
+  /* ===== CONFIRMATION ===== */
+  #confirm-section { background:#fff; text-align:center; }
+  .confetti-area { padding:60px 20px; }
+  .confirm-icon { font-size:6rem; display:block; margin-bottom:20px; animation:bounce .6s ease infinite alternate; }
+  @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-20px)} }
+  .confirm-title { font-family:'Fredoka One'; font-size:2.5rem; color:var(--green); margin-bottom:10px; }
+  .confirm-sub { font-size:1.1rem; color:#666; margin-bottom:30px; }
+  .order-number { background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; border-radius:var(--radius); display:inline-block; padding:16px 40px; font-family:'Fredoka One'; font-size:1.5rem; margin-bottom:30px; }
+
+  /* ===== ABOUT / TAMIL BANNER ===== */
+  .tamil-banner {
+    background:linear-gradient(135deg,var(--orange),var(--yellow));
+    padding:50px 20px; text-align:center;
+  }
+  .tamil-banner h2 { font-family:'Fredoka One'; font-size:2rem; color:var(--dark); }
+  .tamil-banner p { font-size:1rem; color:var(--dark); margin-top:10px; max-width:600px; margin-inline:auto; }
+  .quotes-scroll {
+    display:flex; gap:20px; overflow-x:auto; padding:20px;
+    max-width:1000px; margin:20px auto 0;
+    scrollbar-width:none;
+  }
+  .quotes-scroll::-webkit-scrollbar { display:none; }
+  .quote-bubble {
+    flex-shrink:0; background:#fff; border-radius:20px;
+    padding:16px 20px; min-width:220px;
+    box-shadow:var(--shadow); text-align:center;
+  }
+  .quote-bubble .q { font-weight:800; font-size:.95rem; color:var(--purple); }
+  .quote-bubble .qsub { font-size:.8rem; color:#999; margin-top:4px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background:var(--dark); color:#fff;
+    padding:40px 20px; text-align:center;
+  }
+  footer .footer-logo { font-family:'Fredoka One'; font-size:1.8rem; color:var(--yellow); margin-bottom:10px; }
+  footer p { color:#aaa; font-size:.9rem; }
+  footer .social-icons { display:flex; gap:16px; justify-content:center; margin:16px 0; font-size:1.5rem; }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position:fixed; bottom:30px; right:30px; z-index:9999;
+    background:var(--green); color:#fff; border-radius:14px;
+    padding:14px 24px; font-weight:800; font-size:1rem;
+    transform:translateY(100px); opacity:0; transition:.35s;
+    box-shadow:var(--shadow);
+  }
+  .toast.show { transform:translateY(0); opacity:1; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,.5);
+    z-index:5000; display:none; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.show { display:flex; }
+  .modal { background:#fff; border-radius:24px; padding:30px; max-width:400px; width:100%; text-align:center; }
+  .modal h3 { font-family:'Fredoka One'; font-size:1.5rem; margin-bottom:10px; }
+  .modal p { color:#666; margin-bottom:20px; }
+  .modal-btn { background:var(--purple); color:#fff; border:none; border-radius:50px; padding:10px 28px; font-weight:800; cursor:pointer; font-family:'Nunito'; margin:4px; }
+  .modal-btn.cancel { background:#eee; color:var(--dark); }
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:600px) {
+    .nav-links { display:none; flex-direction:column; position:absolute; top:64px; left:0; right:0; background:var(--purple); padding:20px; gap:14px; }
+    .nav-links.open { display:flex; }
+    .hamburger { display:flex; }
+    .designs-grid { grid-template-columns: repeat(3,1fr); }
+    .form-row { grid-template-columns:1fr; }
+    .hero h1 { font-size:2rem; }
+  }
+
+  /* ===== STEPS BAR ===== */
+  .steps-bar {
+    display:flex; align-items:center; justify-content:center;
+    gap:0; max-width:500px; margin:0 auto 40px; padding:0 16px;
+  }
+  .step {
+    display:flex; flex-direction:column; align-items:center; flex:1;
+    position:relative;
+  }
+  .step::after {
+    content:''; position:absolute; top:18px; left:50%; right:-50%;
+    height:3px; background:#e0e0e0; z-index:0;
+  }
+  .step:last-child::after { display:none; }
+  .step-num {
+    width:36px; height:36px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:.9rem; background:#e0e0e0; color:#999;
+    z-index:1; position:relative; transition:.3s;
+  }
+  .step.active .step-num { background:var(--purple); color:#fff; }
+  .step.done .step-num { background:var(--green); color:#fff; }
+  .step-label { font-size:.7rem; font-weight:700; color:#999; margin-top:5px; }
+  .step.active .step-label, .step.done .step-label { color:var(--dark); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Gift<span>ora</span> 🎁</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('designs')">Designs</a>
+    <a href="#" onclick="showPage('products')">Products</a>
+    <a href="#" onclick="showPage('about')">About</a>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <button class="cart-btn" onclick="showPage('cart')">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1>Gifts That Make 'em LOL! 😂</h1>
+    <p>Tamil Funny Quotes on Water Bottles, Mugs, Bags & Phone Cases</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('designs')">🎨 Browse Designs</button>
+      <button class="btn-secondary" onclick="showPage('products')">🛍️ Shop Now</button>
+    </div>
+  </div>
+
+  <!-- Feature highlights -->
+  <section style="background:#fff;">
+    <span class="pill">✨ Why Giftora?</span>
+    <div class="section-title" style="color:var(--purple)">Unique. Funny. Tamil. 🤣</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;max-width:1000px;margin:0 auto;">
+      <div style="text-align:center;padding:30px;background:var(--light);border-radius:var(--radius);">
+        <div style="font-size:3rem">🎨</div>
+        <h3 style="font-family:'Fredoka One';margin:10px 0;color:var(--purple)">34 Unique Designs</h3>
+        <p style="color:#777;font-size:.9rem">Hilarious Tamil quotes in English — pick your fav!</p>
+      </div>
+      <div style="text-align:center;padding:30px;background:var(--light);border-radius:var(--radius);">
+        <div style="font-size:3rem">🎁</div>
+        <h3 style="font-family:'Fredoka One';margin:10px 0;color:var(--pink)">4 Products</h3>
+        <p style="color:#777;font-size:.9rem">Water bottle, Mug, Duffle bag, Phone case</p>
+      </div>
+      <div style="text-align:center;padding:30px;background:var(--light);border-radius:var(--radius);">
+        <div style="font-size:3rem">🚀</div>
+        <h3 style="font-family:'Fredoka One';margin:10px 0;color:var(--green)">Fast Delivery</h3>
+        <p style="color:#777;font-size:.9rem">Order by 3pm, shipped same day!</p>
+      </div>
+      <div style="text-align:center;padding:30px;background:var(--light);border-radius:var(--radius);">
+        <div style="font-size:3rem">💳</div>
+        <h3 style="font-family:'Fredoka One';margin:10px 0;color:var(--orange)">Easy Payment</h3>
+        <p style="color:#777;font-size:.9rem">Visa, Mastercard, Pay Now & more</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamil quote preview -->
+  <div class="tamil-banner">
+    <span class="pill">🎉 Sample Quotes</span>
+    <h2>These are not just quotes — they're therapy 😆</h2>
+    <p>Authentic Tamil humour, written in English phonetics — for everyone to enjoy!</p>
+    <div class="quotes-scroll">
+      <div class="quote-bubble"><div class="q">"Enna kodumai saravanan idhu"</div><div class="qsub">What is this injustice, Saravanan!</div></div>
+      <div class="quote-bubble"><div class="q">"Yaen da life-u ivlo"</div><div class="qsub">Why is life like this bro?</div></div>
+      <div class="quote-bubble"><div class="q">"Coffee kudicha thaan brain work aakum"</div><div class="qsub">Brain only works after coffee</div></div>
+      <div class="quote-bubble"><div class="q">"Semma mokkai"</div><div class="qsub">Ultimate nonsense 🤣</div></div>
+      <div class="quote-bubble"><div class="q">"En pulla mela yaen da"</div><div class="qsub">Why on my kid?!</div></div>
+      <div class="quote-bubble"><div class="q">"Nee theriyama irundha nanna irukum"</div><div class="qsub">Better if you didn't know me</div></div>
+    </div>
+  </div>
+
+  <section style="background:#fff;text-align:center;">
+    <span class="pill">🛍️ Ready to Order?</span>
+    <div class="section-title" style="color:var(--orange)">Pick a Design → Choose Product → Done!</div>
+    <button class="btn-primary" onclick="showPage('designs')" style="font-size:1.2rem;padding:16px 48px;">Start Shopping 🎉</button>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Giftora 🎁</div>
+    <div class="social-icons">📘 📸 🐦 💬</div>
+    <p>© 2024 Giftora.com — Made with 💛 for Tamil culture lovers worldwide</p>
+    <p style="margin-top:8px;font-size:.8rem">For support: hello@giftora.com | +65 8888 9999</p>
+  </footer>
+</div>
+
+<!-- ===================== DESIGNS PAGE ===================== -->
+<div class="page" id="page-designs">
+  <section id="designs-section">
+    <span class="pill" style="display:block;text-align:center">Step 1 of 3</span>
+    <div class="section-title" style="color:var(--purple)">🎨 Choose Your Design</div>
+    <p class="section-sub">Pick one of our 34 Tamil funny quote designs — click to select!</p>
+
+    <!-- Steps -->
+    <div class="steps-bar">
+      <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Design</div></div>
+      <div class="step" id="step2"><div class="step-num">2</div><div class="step-label">Product</div></div>
+      <div class="step" id="step3"><div class="step-num">3</div><div class="step-label">Checkout</div></div>
+    </div>
+
+    <!-- Owner Upload Panel -->
+    <div class="owner-panel">
+      <h3>🔒 Owner Panel</h3>
+      <button class="owner-toggle" onclick="toggleOwnerDesigns()">Upload New Design</button>
+      <div class="owner-form" id="ownerDesignForm">
+        <input type="password" id="ownerPassDesign" placeholder="Enter owner password" />
+        <input type="text" id="newQuoteText" placeholder="Tamil quote (English)" />
+        <input type="file" id="newDesignFile" accept="image/*" />
+        <button class="upload-btn" onclick="uploadDesign()">✅ Upload Design</button>
+      </div>
+    </div>
+
+    <div class="designs-grid" id="designsGrid"></div>
+
+    <div style="text-align:center;margin-top:30px;">
+      <button class="btn-primary" onclick="proceedToProducts()" id="toProductsBtn" style="opacity:.5;cursor:not-allowed" disabled>
+        Next: Choose Product →
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Giftora 🎁</div>
+    <p>© 2024 Giftora.com</p>
+  </footer>
+</div>
+
+<!-- ===================== PRODUCTS PAGE ===================== -->
+<div class="page" id="page-products">
+  <section id="products-section">
+    <span class="pill" style="display:block;text-align:center">Step 2 of 3</span>
+    <div class="section-title" style="color:var(--orange)">🛍️ Choose Your Product</div>
+    <p class="section-sub">What do you want your Tamil quote on?</p>
+
+    <div class="steps-bar">
+      <div class="step done" id="step1b"><div class="step-num">✓</div><div class="step-label">Design</div></div>
+      <div class="step active" id="step2b"><div class="step-num">2</div><div class="step-label">Product</div></div>
+      <div class="step" id="step3b"><div class="step-num">3</div><div class="step-label">Checkout</div></div>
+    </div>
+
+    <div id="selectedDesignPreview" style="text-align:center;margin-bottom:24px;"></div>
+
+    <!-- Owner product upload -->
+    <div class="product-upload-area" style="margin-bottom:30px;">
+      <h3 style="font-family:'Fredoka One';color:#fff;margin-bottom:8px">🔒 Owner: Add Product Image</h3>
+      <button class="owner-toggle" onclick="toggleOwnerProduct()">Upload Product Image</button>
+      <div class="owner-form" id="ownerProductForm">
+        <input type="password" id="ownerPassProduct" placeholder="Enter owner password" />
+        <select id="productTarget" style="width:100%;padding:10px;border-radius:10px;border:none;margin-bottom:10px;font-family:'Nunito'">
+          <option value="bottle">Water Bottle</option>
+          <option value="mug">Mug</option>
+          <option value="bag">Duffle Bag</option>
+          <option value="case">Phone Case</option>
+        </select>
+        <input type="file" id="productImgFile" accept="image/*" />
+        <button class="upload-btn" onclick="uploadProductImg()">✅ Update Product Image</button>
+      </div>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+
+    <div style="text-align:center;margin-top:30px;">
+      <button class="btn-secondary" onclick="showPage('designs')" style="margin-right:12px">← Back</button>
+      <button class="btn-primary" onclick="addToCartAndCheckout()" id="toCartBtn" style="opacity:.5;cursor:not-allowed" disabled>
+        Add to Cart 🛒
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Giftora 🎁</div>
+    <p>© 2024 Giftora.com</p>
+  </footer>
+</div>
+
+<!-- ===================== CART PAGE ===================== -->
+<div class="page" id="page-cart">
+  <section id="cart-section">
+    <div class="section-title" style="color:var(--blue)">🛒 Your Cart</div>
+    <p class="section-sub">Review your items before checkout</p>
+    <div class="cart-container" id="cartContainer"></div>
+  </section>
+  <footer><div class="footer-logo">Giftora 🎁</div><p>© 2024 Giftora.com</p></footer>
+</div>
+
+<!-- ===================== CHECKOUT PAGE ===================== -->
+<div class="page" id="page-checkout">
+  <section id="checkout-section">
+    <span class="pill" style="display:block;text-align:center">Step 3 of 3</span>
+    <div class="section-title" style="color:var(--pink)">💳 Checkout</div>
+    <p class="section-sub">Fill in your details and pay!</p>
+
+    <div class="steps-bar">
+      <div class="step done"><div class="step-num">✓</div><div class="step-label">Design</div></div>
+      <div class="step done"><div class="step-num">✓</div><div class="step-label">Product</div></div>
+      <div class="step active"><div class="step-num">3</div><div class="step-label">Checkout</div></div>
+    </div>
+
+    <div class="checkout-form">
+      <!-- Order Summary -->
+      <div style="background:linear-gradient(135deg,#f093fb22,#f5576c22);border-radius:var(--radius);padding:20px;margin-bottom:24px;">
+        <h3 style="font-family:'Fredoka One';margin-bottom:12px;color:var(--purple)">📦 Order Summary</h3>
+        <div id="checkoutSummary"></div>
+      </div>
+
+      <hr class="section-divider">
+      <h3 style="font-family:'Fredoka One';margin-bottom:16px;color:var(--dark)">📬 Delivery Details</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="Rajini" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lname" placeholder="Kumar" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="+65 9123 4567" />
+      </div>
+      <div class="form-group">
+        <label>Delivery Address</label>
+        <input type="text" id="address" placeholder="Block 123, Tampines Street 1, #05-678" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Postal Code</label>
+          <input type="text" id="postal" placeholder="520123" />
+        </div>
+        <div class="form-group">
+          <label>Country</label>
+          <select id="country">
+            <option>Singapore</option>
+            <option>Malaysia</option>
+            <option>India</option>
+            <option>Australia</option>
+            <option>United Kingdom</option>
+            <option>United States</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+      <h3 style="font-family:'Fredoka One';margin-bottom:16px;color:var(--dark)">💳 Payment Method</h3>
+
+      <div class="payment-methods">
+        <div class="pay-method" onclick="selectPayment('paynow')" id="pay-paynow">
+          <span class="pay-icon">📱</span>
+          <div class="pay-name">Pay Now</div>
+        </div>
+        <div class="pay-method" onclick="selectPayment('visa')" id="pay-visa">
+          <span class="pay-icon">💳</span>
+          <div class="pay-name">Visa</div>
+        </div>
+        <div class="pay-method" onclick="selectPayment('mastercard')" id="pay-mastercard">
+          <span class="pay-icon">🔴</span>
+          <div class="pay-name">Mastercard</div>
+        </div>
+      </div>
+
+      <!-- Card details -->
+      <div class="card-fields" id="cardFields">
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Expiry</label>
+            <input type="text" id="cardExp" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)" />
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" id="cardCvv" placeholder="123" maxlength="3" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Name on Card</label>
+          <input type="text" id="cardName" placeholder="RAJINI KUMAR" />
+        </div>
+      </div>
+
+      <!-- PayNow details -->
+      <div class="card-fields" id="paynowFields" style="text-align:center;padding:20px;background:#f0fff8;border-radius:var(--radius);display:none;">
+        <div style="font-size:3rem">📲</div>
+        <div style="font-family:'Fredoka One';font-size:1.2rem;color:var(--green);margin:8px 0">Scan QR or transfer to:</div>
+        <div style="font-size:1.5rem;font-weight:800;color:var(--dark)">+65 8888 9999</div>
+        <div style="color:#888;font-size:.85rem;margin-top:6px">PayNow UEN: 202400001K</div>
+      </div>
+
+      <div style="background:var(--light);border-radius:12px;padding:16px;margin:20px 0;">
+        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;">
+          <span>Subtotal</span><span id="subtotalDisplay">$0.00</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;color:#888;margin-top:6px;">
+          <span>Shipping</span><span>Free 🎉</span>
+        </div>
+        <hr style="border:none;border-top:2px dashed #ddd;margin:12px 0;">
+        <div style="display:flex;justify-content:space-between;font-family:'Fredoka One';font-size:1.4rem;color:var(--purple);">
+          <span>Total</span><span id="totalDisplay">$0.00</span>
+        </div>
+      </div>
+
+      <button class="place-order-btn" onclick="placeOrder()">🎉 Place Order Now!</button>
+      <button class="btn-secondary" onclick="showPage('cart')" style="width:100%;margin-top:12px;">← Back to Cart</button>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Giftora 🎁</div><p>© 2024 Giftora.com</p></footer>
+</div>
+
+<!-- ===================== CONFIRMATION PAGE ===================== -->
+<div class="page" id="page-confirm">
+  <section id="confirm-section">
+    <div class="confetti-area">
+      <span class="confirm-icon">🎉</span>
+      <div class="confirm-title">Order Confirmed! Semma!</div>
+      <p class="confirm-sub">Your Tamil-quoted masterpiece is on its way! 😂</p>
+      <div class="order-number" id="orderNumDisplay">Order #GFT-0000</div>
+      <div id="confirmDetails" style="max-width:500px;margin:0 auto 30px;text-align:left;background:var(--light);border-radius:var(--radius);padding:24px;"></div>
+      <button class="btn-primary" onclick="showPage('home')">🏠 Back to Home</button>
+      <button class="btn-secondary" onclick="showPage('designs')" style="margin-left:12px">🛍️ Shop More</button>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Giftora 🎁</div><p>© 2024 Giftora.com</p></footer>
+</div>
+
+<!-- ===================== ABOUT PAGE ===================== -->
+<div class="page" id="page-about">
+  <section style="background:var(--light)">
+    <div class="section-title" style="color:var(--purple)">About Giftora 💛</div>
+    <div style="max-width:700px;margin:0 auto;text-align:center;">
+      <div style="font-size:5rem;margin-bottom:20px">🎁</div>
+      <p style="font-size:1.1rem;line-height:1.8;color:#555;">
+        Giftora was born from a simple idea — what if everyday products could carry the hilarious spirit of Tamil humour?
+        We print authentic Tamil expressions (written in English phonetics) onto water bottles, mugs, duffle bags, and phone cases —
+        making them perfect gifts for friends, family, or yourself!
+      </p>
+      <div style="margin:40px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem">😂</div>
+          <div style="font-family:'Fredoka One';font-size:1.2rem;margin:8px 0">100% Funny</div>
+          <p style="color:#888;font-size:.85rem">Every quote handpicked for max LOL</p>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem">🏭</div>
+          <div style="font-family:'Fredoka One';font-size:1.2rem;margin:8px 0">Quality Print</div>
+          <p style="color:#888;font-size:.85rem">Long lasting, wash-proof prints</p>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem">🌏</div>
+          <div style="font-family:'Fredoka One';font-size:1.2rem;margin:8px 0">Ship Worldwide</div>
+          <p style="color:#888;font-size:.85rem">We deliver to Tamil hearts everywhere</p>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="showPage('designs')">Start Shopping Now 🎉</button>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Giftora 🎁</div><p>© 2024 Giftora.com</p></footer>
+</div>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+// ===== STATE =====
+let cart = JSON.parse(localStorage.getItem('giftoraCart') || '[]');
+let selectedDesign = null;
+let selectedProduct = null;
+let paymentMethod = null;
+const OWNER_PASSWORD = 'giftora2024';
+
+// ===== DESIGNS DATA =====
+const tamilQuotes = [
+  { id:1, quote:"Enna kodumai saravanan idhu", bg:"#FF6B9D", fg:"#fff", emoji:"😱" },
+  { id:2, quote:"Yaen da life-u ivlo", bg:"#FF8C42", fg:"#fff", emoji:"😭" },
+  { id:3, quote:"Coffee kudicha thaan brain work", bg:"#FFD166", fg:"#333", emoji:"☕" },
+  { id:4, quote:"Semma mokkai", bg:"#06D6A0", fg:"#fff", emoji:"🤣" },
+  { id:5, quote:"Ippo thaan kekkal vandha", bg:"#118AB2", fg:"#fff", emoji:"🤦" },
+  { id:6, quote:"Naan hero da", bg:"#9B5DE5", fg:"#fff", emoji:"🦸" },
+  { id:7, quote:"Vera level nonsense", bg:"#F15BB5", fg:"#fff", emoji:"🤪" },
+  { id:8, quote:"Romba over aagadhe", bg:"#FEE440", fg:"#333", emoji:"🙅" },
+  { id:9, quote:"Loosu ponnu", bg:"#00BBF9", fg:"#fff", emoji:"💁" },
+  { id:10, quote:"Mokka poda vaayen", bg:"#00F5D4", fg:"#333", emoji:"🎤" },
+  { id:11, quote:"Avan oru per illa paiyan", bg:"#FF6B6B", fg:"#fff", emoji:"👦" },
+  { id:12, quote:"Naanga ellam mokkai killers", bg:"#4ECDC4", fg:"#fff", emoji:"💀" },
+  { id:13, quote:"En vazhi thani vazhi", bg:"#45B7D1", fg:"#fff", emoji:"🛤️" },
+  { id:14, quote:"Adei solladha unakkum solladha", bg:"#F7DC6F", fg:"#333", emoji:"🤫" },
+  { id:15, quote:"Overa yosikka vendaam", bg:"#BB8FCE", fg:"#fff", emoji:"🧠" },
+  { id:16, quote:"Waste fellow", bg:"#F1948A", fg:"#fff", emoji:"🗑️" },
+  { id:17, quote:"Paithiyam pidichavan", bg:"#82E0AA", fg:"#333", emoji:"🤯" },
+  { id:18, quote:"Life is very mokkai", bg:"#5DADE2", fg:"#fff", emoji:"📉" },
+  { id:19, quote:"Porukki pasanga", bg:"#F8C471", fg:"#333", emoji:"😈" },
+  { id:20, quote:"Thevai illa advice", bg:"#C39BD3", fg:"#fff", emoji:"📢" },
+  { id:21, quote:"Avan thaan da boss", bg:"#48C9B0", fg:"#fff", emoji:"👑" },
+  { id:22, quote:"Shut up nu solla maten", bg:"#F1948A", fg:"#fff", emoji:"😤" },
+  { id:23, quote:"Super kutti villain", bg:"#85C1E9", fg:"#fff", emoji:"🦹" },
+  { id:24, quote:"Otha solra", bg:"#F9E79F", fg:"#333", emoji:"🙃" },
+  { id:25, quote:"Nallavana irukken", bg:"#A9DFBF", fg:"#333", emoji:"😇" },
+  { id:26, quote:"Seri seri pogalam", bg:"#AED6F1", fg:"#333", emoji:"🚶" },
+  { id:27, quote:"Poda da poi", bg:"#FADBD8", fg:"#c0392b", emoji:"👋" },
+  { id:28, quote:"Yaarukum vendam", bg:"#D2B4DE", fg:"#6c3483", emoji:"🙈" },
+  { id:29, quote:"Ulagam en kai la", bg:"#A3E4D7", fg:"#1a5276", emoji:"🌍" },
+  { id:30, quote:"Kadhal is bakwaas", bg:"#FDEBD0", fg:"#784212", emoji:"💔" },
+  { id:31, quote:"Naan than da", bg:"#D6EAF8", fg:"#1a5276", emoji:"😎" },
+  { id:32, quote:"Mokkai king", bg:"#FCF3CF", fg:"#7d6608", emoji:"🏅" },
+  { id:33, quote:"Life la twist irukkum", bg:"#FDEDEC", fg:"#c0392b", emoji:"🌀" },
+  { id:34, quote:"Ennala mudiyala", bg:"#EAF2FF", fg:"#2471a3", emoji:"😩" }
+];
+
+// ===== PRODUCTS DATA =====
+const products = [
+  { id:'bottle', name:'Water Bottle', emoji:'🍶', price:24.90, desc:'BPA-free 500ml stainless steel bottle with your design printed wrap-around' },
+  { id:'mug',    name:'Ceramic Mug',  emoji:'☕', price:18.90, desc:'11oz premium ceramic mug, dishwasher safe, vibrant full-colour print' },
+  { id:'bag',    name:'Duffle Bag',   emoji:'🎒', price:49.90, desc:'30L canvas duffle bag with reinforced handles and zip pockets' },
+  { id:'case',   name:'Phone Case',   emoji:'📱', price:22.90, desc:'Shockproof hard-shell case for iPhone & Samsung, slim fit design' }
+];
+
+// Custom uploaded designs (stored locally)
+let customDesigns = JSON.parse(localStorage.getItem('giftoraCustomDesigns') || '[]');
+let productImages = JSON.parse(localStorage.getItem('giftoraProductImages') || '{}');
+
+// ===== INIT =====
+function init() {
+  renderDesigns();
+  renderProducts();
+  updateCartCount();
+}
+
+// ===== PAGE NAVIGATION =====
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo(0,0);
+  if(page === 'products') renderProductDesignPreview();
+  if(page === 'cart') renderCart();
+  if(page === 'checkout') renderCheckoutSummary();
+}
+
+// ===== TOGGLE MENU =====
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ===== RENDER DESIGNS =====
+function renderDesigns() {
+  const grid = document.getElementById('designsGrid');
+  grid.innerHTML = '';
+
+  const allDesigns = [...tamilQuotes, ...customDesigns];
+  allDesigns.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'design-card';
+    card.id = 'dc-'+d.id;
+    card.onclick = () => selectDesign(d);
+
+    let imgContent;
+    if (d.imageUrl) {
+      imgContent = `<img src="${d.imageUrl}" style="width:100%;height:100%;object-fit:cover;" />`;
+    } else {
+      imgContent = `<div style="font-size:2rem;margin-bottom:6px">${d.emoji}</div><div style="font-size:.78rem;font-weight:800;color:${d.fg}">${d.quote}</div>`;
+    }
+
+    card.innerHTML = `
+      <div class="design-img" style="background:${d.bg||'#eee'}">
+        ${imgContent}
+      </div>
+      <div class="design-label">#${d.id}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function selectDesign(d) {
+  selectedDesign = d;
+  document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('dc-'+d.id)?.classList.add('selected');
+  const btn = document.getElementById('toProductsBtn');
+  btn.disabled = false; btn.style.opacity='1'; btn.style.cursor='pointer';
+}
+
+function proceedToProducts() {
+  if (!selectedDesign) return;
+  showPage('products');
+}
+
+// ===== RENDER PRODUCTS =====
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = '';
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.id = 'pc-'+p.id;
+    card.onclick = () => selectProduct(p);
+
+    const bgColors = { bottle:'#E8F4FD', mug:'#FFF3E0', bag:'#F3E5F5', case:'#E8F5E9' };
+    const customImg = productImages[p.id];
+
+    card.innerHTML = `
+      <div class="product-img" style="background:${bgColors[p.id]||'#f5f5f5'}">
+        ${customImg ? `<img src="${customImg}" style="width:100%;height:100%;object-fit:cover;"/>` : `<span style="font-size:5rem">${p.emoji}</span>`}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">S$${p.price.toFixed(2)}</div>
+        <div class="product-desc">${p.desc}</div>
+        <button class="add-cart-btn" id="addBtn-${p.id}" disabled>Select to Add</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function selectProduct(p) {
+  selectedProduct = p;
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('pc-'+p.id)?.classList.add('selected');
+  const btn = document.getElementById('toCartBtn');
+  btn.disabled = false; btn.style.opacity='1'; btn.style.cursor='pointer';
+  document.querySelectorAll('[id^="addBtn-"]').forEach(b => { b.textContent='Select to Add'; b.style.background=''; });
+  document.getElementById('addBtn-'+p.id).textContent='✓ Selected!';
+  document.getElementById('addBtn-'+p.id).style.background='var(--green)';
+}
+
+function renderProductDesignPreview() {
+  const el = document.getElementById('selectedDesignPreview');
+  if (!selectedDesign) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div style="display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:50px;padding:10px 20px;box-shadow:var(--shadow)">
+      <div style="width:40px;height:40px;border-radius:50%;background:${selectedDesign.bg||'#ccc'};display:flex;align-items:center;justify-content:center;font-size:1.2rem">${selectedDesign.emoji||'🎨'}</div>
+      <div><div style="font-weight:800;font-size:.9rem">Design Selected:</div><div style="color:var(--purple);font-weight:700;font-size:.85rem">"${selectedDesign.quote}"</div></div>
+    </div>
+  `;
+}
+
+function addToCartAndCheckout() {
+  if (!selectedDesign || !selectedProduct) return;
+  const item = {
+    id: Date.now(),
+    design: selectedDesign,
+    product: selectedProduct,
+    price: selectedProduct.price
+  };
+  cart.push(item);
+  localStorage.setItem('giftoraCart', JSON.stringify(cart));
+  updateCartCount();
+  showToast(`🛒 Added ${selectedProduct.name} to cart!`);
+  selectedProduct = null;
+  showPage('cart');
+}
+
+// ===== CART =====
+function updateCartCount() {
+  document.getElementById('cartCount').textContent = cart.length;
+}
+
+function renderCart() {
+  const el = document.getElementById('cartContainer');
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="empty-cart"><span class="emoji">🛒</span><h3 style="font-family:'Fredoka One';font-size:1.8rem">Your cart is empty!</h3><p style="color:#888;margin:10px 0 24px">Go pick a design and a product!</p><button class="btn-primary" onclick="showPage('designs')">Start Shopping 🎉</button></div>`;
+    return;
+  }
+  const total = cart.reduce((s,i) => s+i.price, 0);
+  let html = '';
+  cart.forEach(item => {
+    html += `
+      <div class="cart-item">
+        <div class="cart-item-emoji">${item.product.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.product.name}</div>
+          <div class="cart-item-design">Design: "${item.design.quote}"</div>
+          <div class="cart-item-price">S$${item.price.toFixed(2)}</div>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${item.id})">🗑️</button>
+      </div>
+    `;
+  });
+  html += `
+    <div class="cart-summary">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;opacity:.8"><span>Items (${cart.length})</span><span>S$${total.toFixed(2)}</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:16px;opacity:.8"><span>Shipping</span><span>FREE 🎉</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>Total</span><div class="total">S$${total.toFixed(2)}</div></div>
+      <button class="checkout-btn" onclick="showPage('checkout')">Proceed to Checkout →</button>
+      <button onclick="showPage('designs')" style="width:100%;background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:50px;padding:10px;font-weight:800;cursor:pointer;margin-top:10px;font-family:'Nunito'">+ Add More Items</button>
+    </div>
+  `;
+  el.innerHTML = html;
+}
+
+function removeItem(id) {
+  cart = cart.filter(i => i.id !== id);
+  localStorage.setItem('giftoraCart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+// ===== CHECKOUT =====
+function renderCheckoutSummary() {
+  const el = document.getElementById('checkoutSummary');
+  const total = cart.reduce((s,i) => s+i.price, 0);
+  let html = '';
+  cart.forEach(item => {
+    html += `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ddd"><span>${item.product.emoji} ${item.product.name} — "${item.design.quote}"</span><span style="font-weight:700">S$${item.price.toFixed(2)}</span></div>`;
+  });
+  el.innerHTML = html;
+  document.getElementById('subtotalDisplay').textContent = `S$${total.toFixed(2)}`;
+  document.getElementById('totalDisplay').textContent = `S$${total.toFixed(2)}`;
+}
+
+function selectPayment(method) {
+  paymentMethod = method;
+  document.querySelectorAll('.pay-method').forEach(el => el.classList.remove('selected'));
+  document.getElementById('pay-'+method).classList.add('selected');
+  document.getElementById('cardFields').style.display = 'none';
+  document.getElementById('paynowFields').style.display = 'none';
+  document.getElementById('cardFields').classList.remove('show');
+  if (method === 'visa' || method === 'mastercard') {
+    document.getElementById('cardFields').style.display = 'block';
+    document.getElementById('cardFields').classList.add('show');
+  } else if (method === 'paynow') {
+    document.getElementById('paynowFields').style.display = 'block';
+  }
+}
+
+function formatCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 2) v = v.substring(0,2)+'/'+v.substring(2);
+  el.value = v;
+}
+
+function placeOrder() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const postal = document.getElementById('postal').value.trim();
+
+  if (!fname||!lname||!email||!phone||!address||!postal) {
+    showToast('❗ Please fill in all delivery details', true); return;
+  }
+  if (!paymentMethod) {
+    showToast('❗ Please select a payment method', true); return;
+  }
+  if ((paymentMethod==='visa'||paymentMethod==='mastercard')) {
+    const cardNum = document.getElementById('cardNum').value.replace(/\s/g,'');
+    if (cardNum.length < 16) { showToast('❗ Enter valid card number', true); return; }
+  }
+
+  const orderNum = 'GFT-' + Math.random().toString(36).substring(2,6).toUpperCase() + Date.now().toString().slice(-4);
+  const total = cart.reduce((s,i) => s+i.price, 0);
+
+  // Save order record
+  const orders = JSON.parse(localStorage.getItem('giftoraOrders') || '[]');
+  orders.push({
+    orderNum, fname, lname, email, phone, address, postal,
+    paymentMethod, items: cart, total,
+    date: new Date().toISOString()
+  });
+  localStorage.setItem('giftoraOrders', JSON.stringify(orders));
+
+  document.getElementById('orderNumDisplay').textContent = `Order ${orderNum}`;
+  document.getElementById('confirmDetails').innerHTML = `
+    <div style="margin-bottom:10px"><strong>📦 Name:</strong> ${fname} ${lname}</div>
+    <div style="margin-bottom:10px"><strong>📧 Email:</strong> ${email}</div>
+    <div style="margin-bottom:10px"><strong>📍 Address:</strong> ${address}, ${postal}</div>
+    <div style="margin-bottom:10px"><strong>💳 Payment:</strong> ${paymentMethod.toUpperCase()}</div>
+    <div style="margin-bottom:10px"><strong>🛍️ Items:</strong> ${cart.length} item(s)</div>
+    <div style="font-family:'Fredoka One';font-size:1.3rem;color:var(--green);margin-top:14px">Total Paid: S$${total.toFixed(2)}</div>
+  `;
+
+  cart = [];
+  localStorage.setItem('giftoraCart', JSON.stringify(cart));
+  updateCartCount();
+  showPage('confirm');
+}
+
+// ===== OWNER FEATURES =====
+function toggleOwnerDesigns() {
+  document.getElementById('ownerDesignForm').classList.toggle('show');
+}
+function toggleOwnerProduct() {
+  document.getElementById('ownerProductForm').classList.toggle('show');
+}
+
+function uploadDesign() {
+  const pass = document.getElementById('ownerPassDesign').value;
+  if (pass !== OWNER_PASSWORD) { showToast('❌ Wrong password!', true); return; }
+  const quote = document.getElementById('newQuoteText').value.trim();
+  const file = document.getElementById('newDesignFile').files[0];
+  if (!quote) { showToast('❗ Enter a quote text', true); return; }
+
+  const newDesign = {
+    id: 'custom-' + Date.now(),
+    quote: quote,
+    bg: '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'),
+    fg: '#fff',
+    emoji: '🎨'
+  };
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      newDesign.imageUrl = e.target.result;
+      customDesigns.push(newDesign);
+      localStorage.setItem('giftoraCustomDesigns', JSON.stringify(customDesigns));
+      renderDesigns();
+      showToast('✅ Design uploaded!');
+      document.getElementById('ownerDesignForm').classList.remove('show');
+    };
+    reader.readAsDataURL(file);
+  } else {
+    customDesigns.push(newDesign);
+    localStorage.setItem('giftoraCustomDesigns', JSON.stringify(customDesigns));
+    renderDesigns();
+    showToast('✅ Design added!');
+    document.getElementById('ownerDesignForm').classList.remove('show');
+  }
+}
+
+function uploadProductImg() {
+  const pass = document.getElementById('ownerPassProduct').value;
+  if (pass !== OWNER_PASSWORD) { showToast('❌ Wrong password!', true); return; }
+  const target = document.getElementById('productTarget').value;
+  const file = document.getElementById('productImgFile').files[0];
+  if (!file) { showToast('❗ Select an image file', true); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    productImages[target] = e.target.result;
+    localStorage.setItem('giftoraProductImages', JSON.stringify(productImages));
+    renderProducts();
+    showToast('✅ Product image updated!');
+    document.getElementById('ownerProductForm').classList.remove('show');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== TOAST =====
+function showToast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? 'var(--pink)' : 'var(--green)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+init();
+</script>
+</body>
+</html>
