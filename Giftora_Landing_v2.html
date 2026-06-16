@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora – Tamil Funny Quotes on Everything!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Nunito",sans-serif;background:#1a0a2e;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  background:rgba(70,0,110,0.97);
+  backdrop-filter:blur(12px);
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:1000;
+  border-bottom:2px solid rgba(255,215,0,0.25);
+}
+.nav-logo{font-family:"Fredoka One";font-size:1.6rem;color:#FFD700;cursor:pointer;}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{
+  color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;
+  letter-spacing:1px;transition:.2s;text-transform:uppercase;cursor:pointer;
+}
+.nav-links a:hover{color:#FFD700;}
+.cart-btn{
+  background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.6);
+  border-radius:50px;padding:8px 20px;font-weight:800;font-size:.9rem;
+  cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s;font-family:"Nunito";
+}
+.cart-btn:hover{background:#FFD700;color:#1a0a2e;border-color:#FFD700;}
+.cart-count{background:#FF6B9D;color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:24px;height:3px;background:#fff;border-radius:3px;display:block;}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ===== HOME PAGE ===== */
+.hero{
+  min-height:92vh;
+  background:linear-gradient(160deg,#5B0D9A 0%,#8B1FCC 25%,#A03BAA 50%,#C0556A 75%,#D4703A 90%,#E89020 100%);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;
+  padding:40px 20px 50px;
+}
+.hero-bg{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  opacity:0.18;pointer-events:none;z-index:0;
+}
+.logo-banner{
+  position:relative;z-index:2;
+  width:100%;max-width:860px;
+  background:linear-gradient(135deg,#7A5500,#C8920A,#F0C030,#FFD700,#F0C030,#C8920A,#7A5500);
+  border-radius:18px;padding:18px 50px;
+  text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;
+  box-shadow:0 6px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.3);
+  margin-bottom:44px;border:3px solid rgba(255,215,0,0.8);
+}
+.logo-gift{width:75px;height:75px;object-fit:contain;filter:drop-shadow(2px 4px 8px rgba(0,0,0,0.5));}
+.logo-text{
+  font-family:"Fredoka One";font-size:clamp(2.8rem,7vw,5rem);
+  color:#1a0a2e;letter-spacing:8px;
+  text-shadow:2px 2px 0 rgba(255,255,255,0.25),-1px -1px 0 rgba(0,0,0,0.2);
+}
+.hero-btns{
+  position:relative;z-index:2;
+  display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;
+  width:100%;max-width:860px;margin-bottom:36px;
+}
+.btn-hero{
+  background:rgba(30,10,60,0.55);color:#fff;
+  border:2.5px solid rgba(255,255,255,0.7);
+  border-radius:50px;padding:13px 44px;
+  font-size:1rem;font-weight:800;cursor:pointer;
+  font-family:"Nunito";letter-spacing:2px;
+  transition:.25s;text-transform:uppercase;backdrop-filter:blur(6px);
+}
+.btn-hero:hover{background:rgba(255,255,255,0.15);border-color:#FFD700;color:#FFD700;transform:translateY(-3px);}
+.carousel-wrapper{position:relative;z-index:2;width:100%;max-width:940px;}
+.carousel-track{display:flex;gap:22px;justify-content:center;align-items:stretch;}
+.design-card{
+  flex:0 0 calc(33.33% - 15px);max-width:290px;
+  background:#fff;border-radius:20px;overflow:hidden;
+  box-shadow:0 16px 50px rgba(0,0,0,0.5);transition:.3s;cursor:pointer;
+}
+.design-card:hover{transform:translateY(-10px) scale(1.03);}
+.design-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+.card-blue{border:5px solid #2196F3;}
+.card-red{border:5px solid #F44336;}
+.card-green{border:5px solid #4CAF50;}
+.card-gold{border:5px solid #FFD700;}
+.carousel-arrows{display:flex;justify-content:center;gap:50px;margin-top:22px;}
+.arrow-btn{
+  background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);
+  color:#fff;border-radius:50%;width:50px;height:50px;
+  font-size:1.1rem;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);
+}
+.arrow-btn:hover{background:rgba(255,215,0,0.3);border-color:#FFD700;color:#FFD700;}
+.watermark-text{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  font-family:"Fredoka One";font-size:clamp(2.5rem,7vw,5rem);
+  color:rgba(255,255,255,0.07);white-space:nowrap;z-index:1;
+  letter-spacing:6px;pointer-events:none;
+}
+
+/* FEATURES */
+.features{background:#fff;padding:70px 20px;text-align:center;}
+.features h2{font-family:"Fredoka One";font-size:2.4rem;color:#5B0D9A;margin-bottom:10px;}
+.features p{color:#999;margin-bottom:48px;font-size:1rem;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px;max-width:900px;margin:0 auto;}
+.feature-card{background:linear-gradient(135deg,#f5eeff,#fff);border-radius:20px;padding:28px 18px;box-shadow:0 4px 20px rgba(91,13,154,0.1);border:2px solid rgba(91,13,154,0.07);}
+.feature-icon{font-size:2.6rem;margin-bottom:12px;display:block;}
+.feature-card h3{font-family:"Fredoka One";font-size:1.15rem;color:#1a0a2e;margin-bottom:6px;}
+.feature-card p{color:#999;font-size:.83rem;line-height:1.5;}
+
+/* SCROLLING QUOTES */
+.quote-section{background:linear-gradient(135deg,#FF8C42,#FFD166);padding:50px 20px;overflow:hidden;}
+.quote-section h2{font-family:"Fredoka One";font-size:2rem;text-align:center;color:#1a0a2e;margin-bottom:28px;}
+.quotes-track{display:flex;gap:18px;animation:scrollQ 22s linear infinite;width:max-content;}
+.quotes-track:hover{animation-play-state:paused;}
+@keyframes scrollQ{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.q-bubble{flex-shrink:0;background:#fff;border-radius:14px;padding:14px 22px;min-width:220px;box-shadow:0 4px 16px rgba(0,0,0,.1);text-align:center;}
+.q-bubble .qt{font-weight:800;font-size:.9rem;color:#5B0D9A;}
+.q-bubble .qs{font-size:.78rem;color:#bbb;margin-top:4px;}
+
+/* SHOP CTA */
+.shop-cta{background:#0d0520;padding:70px 20px;text-align:center;}
+.shop-cta h2{font-family:"Fredoka One";font-size:2.4rem;color:#FFD700;margin-bottom:12px;}
+.shop-cta p{color:#aaa;margin-bottom:28px;font-size:1rem;}
+.big-btn{background:linear-gradient(135deg,#FF6B9D,#9B5DE5);color:#fff;border:none;border-radius:50px;padding:17px 60px;font-size:1.15rem;font-weight:800;cursor:pointer;font-family:"Nunito";box-shadow:0 8px 30px rgba(155,93,229,0.5);transition:.25s;}
+.big-btn:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(155,93,229,0.65);}
+
+/* ===== ABOUT PAGE ===== */
+.about-page{background:#000;min-height:100vh;padding:60px 20px;}
+.about-inner{max-width:1000px;margin:0 auto;}
+.about-img-full{
+  width:100%;max-width:900px;
+  display:block;margin:0 auto;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* FOOTER */
+footer{background:#080215;color:#fff;padding:40px 20px;text-align:center;border-top:2px solid rgba(255,215,0,0.15);}
+.footer-logo{font-family:"Fredoka One";font-size:2rem;color:#FFD700;margin-bottom:10px;cursor:pointer;}
+footer p{color:#666;font-size:.88rem;}
+.social{display:flex;gap:16px;justify-content:center;margin:14px 0;font-size:1.4rem;}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;right:30px;z-index:9999;background:#06D6A0;color:#fff;border-radius:14px;padding:14px 24px;font-weight:800;transform:translateY(100px);opacity:0;transition:.35s;box-shadow:0 8px 30px rgba(0,0,0,.3);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  nav{padding:12px 16px;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:62px;left:0;right:0;background:#3d0070;padding:20px;gap:16px;z-index:999;border-bottom:2px solid rgba(255,215,0,0.2);}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .logo-text{font-size:2.2rem;letter-spacing:4px;}
+  .logo-banner{padding:14px 16px;gap:8px;margin-bottom:28px;}
+  .logo-gift{width:50px;height:50px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .btn-hero{width:100%;text-align:center;}
+  .carousel-track{overflow-x:auto;justify-content:flex-start;scroll-snap-type:x mandatory;padding-bottom:8px;gap:14px;}
+  .design-card{flex:0 0 75vw;max-width:260px;scroll-snap-align:center;}
+  .carousel-arrows{gap:30px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Giftora 🎁</div>
+  <div class="nav-links" id="navLinks">
+    <a onclick="showPage('home')">HOME</a>
+    <a onclick="showPage('home')">DESIGNS</a>
+    <a onclick="showPage('home')">PRODUCTS</a>
+    <a onclick="showPage('about')">ABOUT</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <button class="cart-btn">🛒 Cart <span class="cart-count">0</span></button>
+    <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <img class="hero-bg" src="paatti.jpg" alt="" />
+
+    <!-- GOLD BANNER -->
+    <div class="logo-banner">
+      <img class="logo-gift" src="giftbox.png" alt="gift" />
+      <div class="logo-text">GIFTORA</div>
+      <img class="logo-gift" src="giftbox.png" alt="gift" />
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="hero-btns">
+      <button class="btn-hero" onclick="showToast('🎨 Browsing designs!')">BROWSE DESIGN</button>
+      <button class="btn-hero" onclick="showToast('🛍️ Let\'s shop!')">SHOP NOW</button>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carousel">
+        <div class="design-card card-blue" data-idx="0"><img src="appa.jpg" alt="World Best Appa" /></div>
+        <div class="design-card card-red"  data-idx="1"><img src="busy.jpg" alt="Veetula Irukkean" /></div>
+        <div class="design-card card-green" data-idx="2"><img src="energy.jpg" alt="En Energy" /></div>
+        <div class="design-card card-gold"  data-idx="3"><img src="paatti.jpg" alt="Paatti Approved" /></div>
+      </div>
+      <div class="carousel-arrows">
+        <button class="arrow-btn" onclick="prevSlide()">&#9664;</button>
+        <button class="arrow-btn" onclick="nextSlide()">&#9654;</button>
+      </div>
+    </div>
+
+    <div class="watermark-text">பாட்டி Approved ✓</div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <h2>Why Giftora? 🎁</h2>
+    <p>Unique Tamil humour on products your people will actually love!</p>
+    <div class="features-grid">
+      <div class="feature-card"><span class="feature-icon">🎨</span><h3>Unique Designs</h3><p>Tamil quotes that hit different — funny, relatable, 100% real</p></div>
+      <div class="feature-card"><span class="feature-icon">🎁</span><h3>4 Products</h3><p>Bottle, Mug, Duffle Bag & Phone Case</p></div>
+      <div class="feature-card"><span class="feature-icon">🚀</span><h3>Fast Delivery</h3><p>Order today, shipped same day!</p></div>
+      <div class="feature-card"><span class="feature-icon">💳</span><h3>Easy Payment</h3><p>Visa, Mastercard & PayNow accepted</p></div>
+    </div>
+  </div>
+
+  <!-- SCROLLING QUOTES -->
+  <div class="quote-section">
+    <h2>🤣 Tamil Quotes That Hit Different</h2>
+    <div style="overflow:hidden;">
+      <div class="quotes-track">
+        <div class="q-bubble"><div class="qt">"Enna kodumai saravanan"</div><div class="qs">What is this injustice! 😱</div></div>
+        <div class="q-bubble"><div class="qt">"Veetula Irukkean... Busy-aa than"</div><div class="qs">Home ≠ free 😆</div></div>
+        <div class="q-bubble"><div class="qt">"En Energy-kku Erra Maadiri Pesu"</div><div class="qs">Match the vibe first! 👑</div></div>
+        <div class="q-bubble"><div class="qt">"Paatti Approved ✓"</div><div class="qs">Saapadu Nalla Irukku! 👵</div></div>
+        <div class="q-bubble"><div class="qt">"World's Best Appa"</div><div class="qs">Since Day One 😎🐼</div></div>
+        <div class="q-bubble"><div class="qt">"Semma mokkai"</div><div class="qs">Ultimate nonsense 🤣</div></div>
+        <div class="q-bubble"><div class="qt">"Coffee kudicha thaan brain work"</div><div class="qs">Coffee = life ☕</div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="q-bubble"><div class="qt">"Enna kodumai saravanan"</div><div class="qs">What is this injustice! 😱</div></div>
+        <div class="q-bubble"><div class="qt">"Veetula Irukkean... Busy-aa than"</div><div class="qs">Home ≠ free 😆</div></div>
+        <div class="q-bubble"><div class="qt">"En Energy-kku Erra Maadiri Pesu"</div><div class="qs">Match the vibe first! 👑</div></div>
+        <div class="q-bubble"><div class="qt">"Paatti Approved ✓"</div><div class="qs">Saapadu Nalla Irukku! 👵</div></div>
+        <div class="q-bubble"><div class="qt">"World's Best Appa"</div><div class="qs">Since Day One 😎🐼</div></div>
+        <div class="q-bubble"><div class="qt">"Semma mokkai"</div><div class="qs">Ultimate nonsense 🤣</div></div>
+        <div class="q-bubble"><div class="qt">"Coffee kudicha thaan brain work"</div><div class="qs">Coffee = life ☕</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP CTA -->
+  <div class="shop-cta">
+    <h2>Ready to Gift Something Epic? 🔥</h2>
+    <p>Pick a design → Choose a product → Done! Tamil vibes, delivered.</p>
+    <button class="big-btn" onclick="showToast('🎉 Coming soon!')">Start Shopping Now 🎉</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Giftora 🎁</div>
+    <div class="social">📘 📸 🐦 💬</div>
+    <p>© 2025 Giftora.com — Tamil vibes, worldwide delivery</p>
+    <p style="margin-top:6px;font-size:.78rem;color:#444">hello@giftora.com | +65 8888 9999</p>
+  </footer>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+  <div class="about-page">
+    <div class="about-inner">
+      <img class="about-img-full" src="about.png" alt="About Mrs. Rajini - Founder of Giftora" />
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Giftora 🎁</div>
+    <div class="social">📘 📸 🐦 💬</div>
+    <p>© 2025 Giftora.com — Tamil vibes, worldwide delivery</p>
+    <p style="margin-top:6px;font-size:.78rem;color:#444">hello@giftora.com | +65 8888 9999</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Page navigation
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo(0, 0);
+}
+
+// Carousel
+const allCards = Array.from(document.querySelectorAll('.design-card'));
+let cur = 0;
+const total = allCards.length;
+
+function updateCarousel() {
+  allCards.forEach(c => c.style.display = 'none');
+  for (let i = 0; i < 3; i++) {
+    allCards[(cur + i) % total].style.display = 'block';
+  }
+}
+function nextSlide() { cur = (cur + 1) % total; updateCarousel(); }
+function prevSlide() { cur = (cur - 1 + total) % total; updateCarousel(); }
+setInterval(nextSlide, 3500);
+updateCarousel();
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
